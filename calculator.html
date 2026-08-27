@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Working Days</title>
+    
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+</head>
+<body>
+    <div>
+        <header>
+            <h1>Working Days</h1>
+            <p>Calculate global working days & bank holidays instantly.</p>
+        </header>
+
+        <main>
+            <div>
+                <label for="country">Country:</label>
+                <select id="country">
+                    <option value="UK">UK</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Spain">Spain</option>
+                    <option value="France">France</option>
+                    <option value="Poland">Poland</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Dubai (UAE)">Dubai (UAE)</option>
+                    <option value="Abu Dhabi (UAE)">Abu Dhabi (UAE)</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Qatar">Qatar</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="month">Month:</label>
+                <select id="month">
+                    <option value="All Year">All Year</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="year">Year:</label>
+                <input type="number" id="year" min="2000" max="2100" value="2026">
+            </div>
+            <br>
+            <button id="calc-btn" py-click="calculate">Calculate</button>
+        </main>
+        
+        <hr>
+
+        <section id="results-section">
+            <!-- Results will be injected here by PyScript -->
+        </section>
+    </div>
+
+    <!-- PyScript configuration and logic -->
+    <py-config>
+        packages = ["holidays"]
+    </py-config>
+    <script type="py" src="./workingdayfinder.py"></script>
+</body>
+</html>
