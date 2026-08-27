@@ -31,11 +31,9 @@ def calculate(event):
         window.alert("Please enter a valid numeric year.")
         return
 
-    # 1. Fetch the holidays
     try:
         country_holidays = holidays.country_holidays(country_code, years=year)
     except NotImplementedError:
-        # Fallback if a specific country isn't supported
         if country_name == "Qatar":
             window.alert("Bank holidays for Qatar might not be natively supported in your version of the library. Only weekends will be deducted.")
             country_holidays = {}
@@ -43,15 +41,13 @@ def calculate(event):
             window.alert(f"Bank holidays for {country_name} are not supported in your 'holidays' version.")
             return
 
-    # 2. Handle regional weekend differences
     if country_name in ["Saudi Arabia", "Qatar"]:
-        weekend_days = [4, 5]  # Friday-Saturday weekend
+        weekend_days = [4, 5]
     elif country_name in ["Dubai (UAE)", "Abu Dhabi (UAE)"] and year < 2022:
-        weekend_days = [4, 5]  # UAE changed from Fri/Sat to Sat/Sun in 2022
+        weekend_days = [4, 5]
     else:
-        weekend_days = [5, 6]  # Standard Saturday-Sunday weekend
+        weekend_days = [5, 6]
 
-    # 3. Determine which months to process
     if month_selection == "All Year":
         months_to_check = range(1, 13)
     else:
@@ -69,7 +65,6 @@ def calculate(event):
     
     specific_month_breakdown = ""
 
-    # 4. Count the days
     for month in months_to_check:
         working_days = 0
         weekend_count = 0
@@ -93,9 +88,16 @@ def calculate(event):
                 working_days += 1
                 
         month_name = calendar.month_name[month]
+        bh_count = len(holidays_in_month)
         results_html += f"""
-            <li>
-                <strong>{month_name}</strong>: {working_days} days
+            <li style="margin-bottom: 15px;">
+                <strong>{month_name}</strong>
+                <ul style="list-style-type: disc; margin-left: 20px; margin-top: 5px;">
+                    <li>Days in month: {num_days}</li>
+                    <li>Weekends: {weekend_count}</li>
+                    <li>Bank holidays: {bh_count}</li>
+                    <li>Working days: {working_days}</li>
+                </ul>
             </li>
         """
         total_days += working_days
@@ -104,9 +106,6 @@ def calculate(event):
             specific_month_breakdown += f"""
                 <div>
                     <h3>Breakdown for {month_name}</h3>
-                    <div>
-                        <span>Weekend days: <strong>{weekend_count}</strong></span>
-                    </div>
                     <div>
                         <span>Bank Holidays:</span>
                     </div>
@@ -137,5 +136,4 @@ def calculate(event):
         </div>
     """
     
-    # 5. Display the result
     document.getElementById("results-section").innerHTML = results_html
