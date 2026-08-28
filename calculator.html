@@ -4,21 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Working Days</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #000;
+            padding: 20px;
+        }
+        .layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        .left-panel {
+            flex: 1;
+            min-width: 250px;
+        }
+        .right-panel {
+            flex: 2;
+            border: 1px solid #000;
+            padding: 20px;
+            min-height: 200px;
+        }
+        @media (max-width: 768px) {
+            .layout {
+                flex-direction: column;
+            }
+        }
+        header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 10px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .form-group, main > div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
+        button#calc-btn {
+            border: 1px solid #000;
+            background-color: #eee;
+            color: #000;
+            padding: 8px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button#calc-btn:hover {
+            background-color: #ddd;
+        }
+        #results-section h2, #results-section h3 {
+            margin-top: 0;
+        }
+        #results-section ul {
+            padding-left: 20px;
+        }
+    </style>
     
-    <!-- PyScript -->
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
     <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
 </head>
 <body>
-    <div>
-        <header>
+    <div class="container">
+        <header style="display: flex; justify-content: space-between; align-items: center;">
             <h1>Working Days</h1>
-            <p>Calculate global working days & bank holidays instantly.</p>
+            <button onclick="window.location.href='index.html'" style="width: auto; margin-top: 0;">Home</button>
         </header>
 
-        <main>
-            <div>
-                <label for="country">Country:</label>
+        <div class="layout">
+            <main class="left-panel">
+                <div>
+                    <label for="country">Country:</label>
                 <select id="country">
                     <option value="UK">UK</option>
                     <option value="Netherlands">Netherlands</option>
@@ -61,16 +137,13 @@
             </div>
             <br>
             <button id="calc-btn" py-click="calculate">Calculate</button>
-        </main>
-        
-        <hr>
-
-        <section id="results-section">
-            <!-- Results will be injected here by PyScript -->
-        </section>
+            </main>
+            
+            <section id="results-section" class="right-panel">
+            </section>
+        </div>
     </div>
 
-    <!-- PyScript configuration and logic -->
     <py-config>
         packages = ["holidays"]
     </py-config>
